@@ -35,7 +35,7 @@ observerReceipt.invalidate()
 
 ### Custom Operator
 
-When set or get value from **Property**, we can use **set(_:)** or **get()** to do so. However, we can also use custom operator to set value and get value.
+When setting or getting value from **Property**, we can use **set(_:)** or **get()** to do so. However, we can also use custom operator to set value and get value.
 
 ```swift
 // Setter
