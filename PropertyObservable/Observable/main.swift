@@ -64,12 +64,14 @@ let v = <<<property
 debugPrint(" v is \(v)")
 
 struct BOB {
-    let value: Property<Int> = Property<Int>(0)
+    let age: Property<Int> = Property<Int>(0)
 }
 
 let bob = BOB()
-let bobreceipt = bob.value.observe { (new, old) in
-    debugPrint("Bob's value property changed: New \(new), Old \(old)")
+bob.age <<< 30
+let observerReceipt = bob.age.observe { (new, old) in
+    print("Bob's is getting old on his new age \(new). He was \(old) last year")
 }
-bob.value <<< 401
-
+bob.age <<< 31
+print("bob's new age: \(<<<bob.age)")
+observerReceipt.invalidate()
