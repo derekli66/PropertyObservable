@@ -29,7 +29,6 @@ bob.age <<< 31
 ### Invalidate Observation
 
 ```swift
-
 observerReceipt.invalidate()
 
 ```
