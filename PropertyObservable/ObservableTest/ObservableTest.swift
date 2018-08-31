@@ -47,6 +47,19 @@ class ObservableTest: XCTestCase {
         XCTAssert(check == true, "Event should not be triggered twice")
     }
     
+    func testEventBrokerAutoInvalidate()
+    {
+        let event = Event()
+        
+        var check: Bool = false
+        _ = event.register { (changeMap) in
+            check = !check
+        }
+        
+        event.trigger([EventChangeKeys.new.key: 200, EventChangeKeys.old.key: 300])
+        XCTAssert(check == false, "Event should not get triggered")
+    }
+    
     func testProperty()
     {
         let property = Property<Int>(0)

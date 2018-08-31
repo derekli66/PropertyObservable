@@ -48,6 +48,11 @@ class Property<T>
         }
     }
     
+    /// Method to register observation action
+    /// Please be aware that the ObserverReceipt instance must be kept when leaving
+    /// your working scope, otherwise, ObserverReceipt will call invalidate() at deinit
+    /// - Parameter change: ObserverAction closure
+    /// - Returns: ObserverReceipt instance
     open func observe(_ change: @escaping ObserverAction<T>) -> ObserverReceipt
     {
         let action: EventAction = { (changeMap) in

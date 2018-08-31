@@ -22,6 +22,10 @@ class EventReceipt {
         self.delegate = delegate
     }
     
+    deinit {
+        invalidate()
+    }
+    
     open func invalidate()
     {
         guard let result = self.delegate?.invalidate(identifier: self.identifier) else { return }
