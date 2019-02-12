@@ -77,14 +77,15 @@ class ObservableTest: XCTestCase {
             check = !check
         }
         property <<< 404
-        let finalValue1 = <<<property
+        var finalValue1: Int = 0
+        finalValue1 <<< property
         let finalValue2 = property.get()
         XCTAssert(finalValue1 == finalValue2, "getter and prefix operator should return the same value")
         receipty2.invalidate()
         
         property <<< 99
         XCTAssert(check == true, "Property chagne event should not be triggered twice")
-        XCTAssert(99 == <<<property, "Property value must be the same after setter")
+        XCTAssert(99 == property.get(), "Property value must be the same after setter")
     }
     
 }

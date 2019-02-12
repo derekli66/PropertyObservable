@@ -19,15 +19,9 @@ func <<<<T>(left:Property<T>, right:T)
     left.set(right)
 }
 
-prefix operator <<<
-/// prefix operator for Property<T> class
-/// <<<property is equivalent to property.get()
-///
-/// - Parameter property: Property<T> variable
-/// - Returns: The value inside Property<T> variable
-prefix func <<<<T>(property: Property<T>) -> T
+func <<<<T>(left: inout T, right:Property<T>)
 {
-    return property.get()
+    left = right.get()
 }
 
 typealias ObserverAction<T> = (_ new: T, _ old: T)->()

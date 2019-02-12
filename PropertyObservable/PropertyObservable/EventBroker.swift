@@ -58,23 +58,10 @@ class Event: ReceiptHandler, EventBroker {
     
     private var events: Array<ActionHolder> = []
     
-    /// The lock property is to ensure the UUID creation from CFUUIDCreateString
-    /// can be safely released without any memory issue.
-    /// Without lock, the UUID creation inside global queue may cause crash sometimes (pointer being freed was not allocated)
-    static private let lock = DispatchQueue(label: "Event.Lock")
-    
     func register(_ action: @escaping EventAction) -> EventReceipt
     {
-        var id = "1"
-        Event.lock.sync {
-            if let uuid = CFUUIDCreateString(nil, CFUUIDCreate(nil)) { id = uuid as String }
-            else {
-                if let actionHolder = events.last {
-                    id = actionHolder.identifier + "1"
-                }
-            }
-            events.append(ActionHolder(identifier: id, eventAction: action))
-        }
+        let id = UUID().uuidString
+        events.append(ActionHolder(identifier: id, eventAction: action))
     
         return EventReceipt(identifier: id, delegate: self)
     }

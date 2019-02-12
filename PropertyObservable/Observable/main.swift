@@ -9,9 +9,9 @@ import Foundation
 
 debugPrint("//-------Event Sample Code------------")
 let event = Event()
-var receipt: EventReceipt?
+var receipt1: EventReceipt?
 DispatchQueue.global().async {
-    receipt = event.register { (change) in
+    receipt1 = event.register { (change) in
         if let value = change[EventChangeKeys.new.key] as? Int {
             debugPrint("Event1 new value: \(value)")
         }
@@ -35,7 +35,7 @@ receipt3 = event.register { (change) in
 
 debugPrint("[Trigger event 404]")
 event.trigger([EventChangeKeys.new.key: 404])
-receipt?.invalidate()
+receipt1?.invalidate()
 debugPrint("//-------------------")
 
 debugPrint("[Trigger event 505]")
@@ -60,7 +60,8 @@ property.set(1001)
 receipty.invalidate()
 property <<< 301
 debugPrint("Property value: \(property.get())")
-let v = <<<property
+var v = 0
+v <<< property
 debugPrint(" v is \(v)")
 
 struct BOB {
@@ -73,5 +74,6 @@ let observerReceipt = bob.age.observe { (new, old) in
     print("Bob's is getting old on his new age \(new). He was \(old) last year")
 }
 bob.age <<< 31
-print("bob's new age: \(<<<bob.age)")
+print("bob's new age: \(bob.age.get())")
 observerReceipt.invalidate()
+
